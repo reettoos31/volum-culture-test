@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>VOLUM — Тест корпоративной культуры</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    body{
+      font-family:'Raleway', sans-serif;
+      background:#050816;
+      color:white;
+      overflow-x:hidden;
+    }
+
+    .bg-glow{
+      position:fixed;
+      width:600px;
+      height:600px;
+      border-radius:50%;
+      background:rgba(88,126,255,0.18);
+      filter:blur(120px);
+      top:-200px;
+      right:-150px;
+      z-index:-1;
+    }
+
+    .bg-glow2{
+      position:fixed;
+      width:500px;
+      height:500px;
+      border-radius:50%;
+      background:rgba(120,90,255,0.15);
+      filter:blur(120px);
+      bottom:-200px;
+      left:-150px;
+      z-index:-1;
+    }
+
+    .container{
+      max-width:720px;
+      margin:0 auto;
+      padding:32px 20px 60px;
+    }
+
+    .hero{
+      padding-top:50px;
+      padding-bottom:40px;
+    }
+
+    .logo{
+      font-size:14px;
+      letter-spacing:4px;
+      color:#9ba7ff;
+      margin-bottom:24px;
+      font-weight:600;
+    }
+
+    h1{
+      font-size:42px;
+      line-height:1.1;
+      margin-bottom:20px;
+      font-weight:700;
+    }
+
+    .subtitle{
+      font-size:18px;
+      line-height:1.6;
+      color:#b7bfdc;
+      margin-bottom:40px;
+    }
+
+    .start-btn,
+    .next-btn{
+      width:100%;
+      border:none;
+      border-radius:22px;
+      padding:18px;
+      background:linear-gradient(135deg,#6D7DFF,#7E5CFF);
+      color:white;
+      font-size:17px;
+      font-weight:600;
+      cursor:pointer;
+      transition:0.3s;
+      box-shadow:0 10px 40px rgba(109,125,255,0.3);
+    }
+
+    .start-btn:hover,
+    .next-btn:hover{
+      transform:translateY(-2px);
+    }
+
+    .quiz{
+      display:none;
+    }
+
+    .progress-wrap{
+      margin-bottom:30px;
+    }
+
+    .progress-text{
+      margin-bottom:10px;
+      color:#9ea8d3;
+      font-size:14px;
+    }
+
+    .progress{
+      width:100%;
+      height:10px;
+      background:#1b2035;
+      border-radius:999px;
+      overflow:hidden;
+    }
+
+    .progress-bar{
+      height:100%;
+      width:20%;
+      background:linear-gradient(90deg,#6D7DFF,#7E5CFF);
+      border-radius:999px;
+      transition:0.4s;
+    }
+
+    .question-card{
+      background:rgba(17,24,39,0.75);
+      backdrop-filter:blur(20px);
+      border:1px solid rgba(255,255,255,0.08);
+      border-radius:28px;
+      padding:28px;
+      margin-bottom:20px;
+      animation:fadeIn 0.4s ease;
+    }
+
+    @keyframes fadeIn{
+      from{
+        opacity:0;
+        transform:translateY(10px);
+      }
+      to{
+        opacity:1;
+        transform:translateY(0);
+      }
+    }
+
+    .question-title{
+      font-size:26px;
+      line-height:1.3;
+      margin-bottom:28px;
+      font-weight:600;
+    }
+
+    .answers{
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+    }
+
+    .answer{
+      padding:18px;
+      border-radius:20px;
+      background:#111827;
+      border:1px solid rgba(255,255,255,0.07);
+      cursor:pointer;
+      transition:0.25s;
+      font-size:16px;
+      line-height:1.5;
+    }
+
+    .answer:hover{
+      border-color:#6D7DFF;
+      background:#18203a;
+    }
+
+    .answer.active{
+      border:1px solid #7E5CFF;
+      background:rgba(109,125,255,0.18);
+    }
+
+    .result{
+      display:none;
+      animation:fadeIn 0.5s ease;
+    }
+
+    .result-card{
+      background:rgba(17,24,39,0.8);
+      backdrop-filter:blur(20px);
+      border-radius:30px;
+      padding:32px;
+      border:1px solid rgba(255,255,255,0.08);
+    }
+
+    .result-type{
+      color:#9ba7ff;
+      font-size:14px;
+      letter-spacing:3px;
+      margin-bottom:18px;
+      text-transform:uppercase;
+    }
+
+    .result-title{
+      font-size:40px;
+      margin-bottom:20px;
+      font-weight:700;
+    }
+
+    .result-description{
+      font-size:18px;
+      line-height:1.8;
+      color:#c5cbe3;
+      margin-bottom:30px;
+    }
+
+    .result-block{
+      margin-bottom:22px;
+    }
+
+    .result-block-title{
+      font-size:15px;
+      color:#8f9cff;
+      margin-bottom:8px;
+      text-transform:uppercase;
+      letter-spacing:2px;
+    }
+
+    .result-block-text{
+      color:#d6dbf3;
+      line-height:1.7;
+    }
+
+    .cta{
+      margin-top:40px;
+      padding:24px;
+      border-radius:24px;
+      background:linear-gradient(135deg,rgba(109,125,255,0.16),rgba(126,92,255,0.16));
+      border:1px solid rgba(255,255,255,0.08);
+    }
+
+    .cta-title{
+      font-size:24px;
+      margin-bottom:14px;
+      font-weight:600;
+    }
+
+    .cta-text{
+      color:#c8d0ee;
+      line-height:1.7;
+      margin-bottom:20px;
+    }
+
+    .cta-btn{
+      width:100%;
+      border:none;
+      padding:18px;
+      border-radius:18px;
+      background:white;
+      color:#050816;
+      font-weight:700;
+      font-size:16px;
+      cursor:pointer;
+    }
+
+    @media(max-width:768px){
+
+      h1{
+        font-size:34px;
+      }
+
+      .question-title{
+        font-size:22px;
+      }
+
+      .result-title{
+        font-size:32px;
+      }
+
+    }
+
+  </style>
+</head>
+<body>
+
+<div class="bg-glow"></div>
+<div class="bg-glow2"></div>
+
+<div class="container">
+
+  <div class="hero" id="hero">
+
+    <div class="logo">VOLUM CONSULTING</div>
+
+    <h1>
+      Какой тип корпоративной культуры у вашей компании?
+    </h1>
+
+    <div class="subtitle">
+      Пройдите короткий тест и узнайте, какая модель корпоративной культуры сформировалась внутри вашей команды.
+    </div>
+
+    <button class="start-btn" onclick="startQuiz()">
+      Пройти тест
+    </button>
+
+  </div>
+
+  <div class="quiz" id="quiz">
+
+    <div class="progress-wrap">
+      <div class="progress-text">
+        Вопрос <span id="currentQuestion">1</span> из 5
+      </div>
+
+      <div class="progress">
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
+    </div>
+
+    <div class="question-card">
+
+      <div class="question-title" id="questionTitle"></div>
+
+      <div class="answers" id="answers"></div>
+
+    </div>
+
+    <button class="next-btn" onclick="nextQuestion()">
+      Далее
+    </button>
+
+  </div>
+
+  <div class="result" id="result">
+
+    <div class="result-card">
+
+      <div class="result-type">
+        Тип корпоративной культуры
+      </div>
+
+      <div class="result-title" id="resultTitle"></div>
+
+      <div class="result-description" id="resultDescription"></div>
+
+      <div class="result-block">
+        <div class="result-block-title">Сильные стороны</div>
+        <div class="result-block-text" id="strengths"></div>
+      </div>
+
+      <div class="result-block">
+        <div class="result-block-title">Риски</div>
+        <div class="result-block-text" id="risks"></div>
+      </div>
+
+      <div class="cta">
+
+        <div class="cta-title">
+          Хотите глубокий разбор вашей корпоративной культуры?
+        </div>
+
+        <div class="cta-text">
+          Команда VOLUM поможет определить точки роста внутри команды и усилить вовлечённость сотрудников.
+        </div>
+
+        <button class="cta-btn">
+          Получить консультацию
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+
+const questions = [
+
+{
+title:"1. Как принимаются решения в сложных ситуациях?",
+answers:[
+{text:"A) Общее собрание, учитываем мнение всех", type:"A"},
+{text:"B) Быстро: лидер решает, команда исполняет", type:"B"},
+{text:"C) Каждый сам решает в своей зоне", type:"C"},
+{text:"D) Совещаемся с ключевыми игроками и быстро внедряем", type:"D"}
+]
+},
+
+{
+title:"2. Как у вас принято отмечать успехи?",
+answers:[
+{text:"A) Корпоративы, совместные выезды", type:"A"},
+{text:"B) Индивидуальные бонусы", type:"B"},
+{text:"C) Почти никак", type:"C"},
+{text:"D) Разбор достижений команды и признание лучших", type:"D"}
+]
+},
+
+{
+title:"3. Что происходит, если сотрудник допускает ошибку?",
+answers:[
+{text:"A) Вместе ищем решение", type:"A"},
+{text:"B) Жёсткий разбор", type:"B"},
+{text:"C) Каждый сам разбирается", type:"C"},
+{text:"D) Спокойный разбор по делу", type:"D"}
+]
+},
+
+{
+title:"4. Какие фразы чаще всего слышны в вашей компании?",
+answers:[
+{text:"A) «Мы одна семья»", type:"A"},
+{text:"B) «Результат любой ценой»", type:"B"},
+{text:"C) «Это не моя задача»", type:"C"},
+{text:"D) «Кто за что отвечает?»", type:"D"}
+]
+},
+
+{
+title:"5. Что чаще всего обсуждают в неформальной обстановке?",
+answers:[
+{text:"A) И работу, и жизнь", type:"A"},
+{text:"B) Только рабочие вопросы", type:"B"},
+{text:"C) Кейсы, рынок, конкурентов", type:"C"},
+{text:"D) Планы, фильмы, личное", type:"D"}
+]
+}
+
+];
+
+let current = 0;
+let selected = null;
+
+let scores = {
+A:0,
+B:0,
+C:0,
+D:0
+};
+
+function startQuiz(){
+
+document.getElementById("hero").style.display = "none";
+document.getElementById("quiz").style.display = "block";
+
+renderQuestion();
+
+}
+
+function renderQuestion(){
+
+const q = questions[current];
+
+document.getElementById("questionTitle").innerText = q.title;
+
+document.getElementById("currentQuestion").innerText = current + 1;
+
+document.getElementById("progressBar").style.width = ((current + 1) * 20) + "%";
+
+const answersContainer = document.getElementById("answers");
+
+answersContainer.innerHTML = "";
+
+selected = null;
+
+q.answers.forEach(answer => {
+
+const div = document.createElement("div");
+
+div.classList.add("answer");
+
+div.innerText = answer.text;
+
+div.onclick = () => {
+
+document.querySelectorAll(".answer").forEach(el=>{
+el.classList.remove("active");
+});
+
+div.classList.add("active");
+
+selected = answer.type;
+
+};
+
+answersContainer.appendChild(div);
+
+});
+
+}
+
+function nextQuestion(){
+
+if(!selected){
+alert("Выберите вариант ответа");
+return;
+}
+
+scores[selected]++;
+
+current++;
+
+if(current < questions.length){
+
+renderQuestion();
+
+}else{
+
+showResult();
+
+}
+
+}
+
+function showResult(){
+
+document.getElementById("quiz").style.display = "none";
+document.getElementById("result").style.display = "block";
+
+let maxType = Object.keys(scores).reduce((a,b)=>
+scores[a] > scores[b] ? a : b
+);
+
+const results = {
+
+A:{
+title:"Сетевая культура",
+description:"В вашей компании высокий уровень эмоциональной близости и вовлечённости. Люди чувствуют себя частью общего пространства, где важны отношения и поддержка.",
+strengths:"Лояльность команды, тёплая атмосфера, высокий уровень доверия.",
+risks:"Сложности с быстрыми решениями и избегание конфликтов."
+},
+
+B:{
+title:"Наёмническая культура",
+description:"Главный приоритет — результат. Компания ориентирована на KPI, скорость и эффективность.",
+strengths:"Высокая продуктивность, быстрый рост, сильная ориентация на цели.",
+risks:"Выгорание сотрудников и высокая текучесть."
+},
+
+C:{
+title:"Фрагментированная культура",
+description:"Сотрудники работают автономно и независимо друг от друга. В компании высокий уровень свободы, но низкая вовлечённость в общее пространство.",
+strengths:"Самостоятельность сотрудников и независимость.",
+risks:"Слабая командность и отсутствие единого видения."
+},
+
+D:{
+title:"Коммунальная культура",
+description:"В компании сочетаются высокая вовлечённость команды и ориентация на результат. Обычно именно такие культуры становятся самыми устойчивыми.",
+strengths:"Сильная команда, высокая ответственность, здоровая коммуникация.",
+risks:"Высокие требования к людям и сложность поддержания баланса."
+}
+
+};
+
+const result = results[maxType];
+
+document.getElementById("resultTitle").innerText = result.title;
+document.getElementById("resultDescription").innerText = result.description;
+document.getElementById("strengths").innerText = result.strengths;
+document.getElementById("risks").innerText = result.risks;
+
+}
+
+if(window.Telegram.WebApp){
+
+Telegram.WebApp.expand();
+
+}
+
+</script>
+
+</body>
+</html>
