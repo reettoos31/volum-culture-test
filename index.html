@@ -9,142 +9,145 @@
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
   <style>
-
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
 
-    body{
-      font-family:'Raleway', sans-serif;
-      background: linear-gradient(180deg,#BED3E4 0%,#F5F5F5 38%,#DFE7EE 100%);
-      color:#111;
-      min-height:100vh;
+    body {
+      font-family: 'Raleway', sans-serif;
+      background: linear-gradient(180deg, #BED3E4 0%, #F5F5F5 38%, #DFE7EE 100%);
+      color: #111;
+      min-height: 100vh;
     }
 
-    .container{
-      max-width:720px;
-      margin:0 auto;
-      padding:30px 20px 60px;
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 30px 20px 60px;
     }
 
     /* LOGO */
-    .logo{
-      font-size:18px;
-      font-weight:600;
-      margin-bottom:25px;
-      letter-spacing:1px;
+    .logo {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 25px;
+      letter-spacing: 1px;
     }
 
     /* HERO */
-    h1{
-      font-size:36px;
-      font-weight:600;
-      margin-bottom:15px;
+    h1 {
+      font-size: 36px;
+      font-weight: 600;
+      margin-bottom: 15px;
     }
 
-    .subtitle{
-      font-size:16px;
-      font-weight:400;
-      margin-bottom:30px;
-      color:#333;
-      line-height:1.6;
+    .subtitle {
+      font-size: 16px;
+      font-weight: 400;
+      margin-bottom: 30px;
+      color: #333;
+      line-height: 1.6;
     }
 
     /* BUTTONS */
-    button{
-      width:100%;
-      padding:16px;
-      border-radius:18px;
-      border:1px solid #000;
-      background:transparent;
-      color:#000;
-      font-family:'Raleway', sans-serif;
-      font-weight:500;
-      cursor:pointer;
-      transition:0.2s;
+    button {
+      width: 100%;
+      padding: 16px;
+      border-radius: 18px;
+      border: 1px solid #000;
+      background: transparent;
+      color: #000;
+      font-family: 'Raleway', sans-serif;
+      font-weight: 500;
+      cursor: pointer;
+      transition: 0.2s;
     }
 
-    button:hover{
-      background:#000;
-      color:#fff;
+    button:hover {
+      background: #000;
+      color: #fff;
     }
 
     /* QUIZ */
-    .quiz{
-      display:none;
+    .quiz {
+      display: none;
     }
 
-    .question-card{
-      background:rgba(255,255,255,0.7);
-      border:1px solid rgba(0,0,0,0.08);
-      padding:24px;
-      border-radius:24px;
-      margin-bottom:20px;
+    .question-card {
+      background: rgba(255, 255, 255, 0.7);
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      padding: 24px;
+      border-radius: 24px;
+      margin-bottom: 20px;
     }
 
-    .question-title{
-      font-size:20px;
-      font-weight:600;
-      margin-bottom:20px;
+    .question-title {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 20px;
     }
 
-    .answer{
-      padding:14px;
-      border:1px solid rgba(0,0,0,0.15);
-      border-radius:14px;
-      margin-bottom:10px;
-      cursor:pointer;
-      transition:0.2s;
+    .answer {
+      padding: 14px;
+      border: 1px solid rgba(0, 0, 0, 0.15);
+      border-radius: 14px;
+      margin-bottom: 10px;
+      cursor: pointer;
+      transition: 0.2s;
     }
 
-    .answer:hover{
-      background:#000;
-      color:#fff;
+    .answer:hover {
+      background: #000;
+      color: #fff;
     }
 
-    .answer.active{
-      background:#000;
-      color:#fff;
+    .answer.active {
+      background: #000;
+      color: #fff;
     }
 
-    .progress{
-      font-size:14px;
-      margin-bottom:15px;
+    .progress {
+      font-size: 14px;
+      margin-bottom: 15px;
     }
 
     /* RESULT */
-    .result{
-      display:none;
+    .result {
+      display: none;
     }
 
-    .result-card{
-      background:rgba(255,255,255,0.75);
-      border:1px solid rgba(0,0,0,0.08);
-      border-radius:24px;
-      padding:24px;
+    .result-card {
+      background: rgba(255, 255, 255, 0.75);
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      border-radius: 24px;
+      padding: 24px;
     }
 
-    .result-title{
-      font-size:26px;
-      font-weight:600;
-      margin-bottom:15px;
+    .result-title {
+      font-size: 26px;
+      font-weight: 600;
+      margin-bottom: 15px;
     }
 
-    .block-title{
-      font-weight:600;
-      margin-top:15px;
-      margin-bottom:5px;
+    .block-title {
+      font-weight: 600;
+      margin-top: 15px;
+      margin-bottom: 5px;
     }
 
-    .cta{
-      margin-top:25px;
-      padding:20px;
-      border:1px solid #000;
-      border-radius:20px;
+    .cta {
+      margin-top: 25px;
+      padding: 20px;
+      border: 1px solid #000;
+      border-radius: 20px;
     }
 
+    .plain-text {
+      white-space: pre-line;
+      line-height: 1.5;
+    }
   </style>
 </head>
 
@@ -180,24 +183,21 @@
     <div class="result-card">
 
       <div class="result-title" id="resultTitle"></div>
+      <div id="description" class="plain-text"></div>
 
-      <div id="description"></div>
+      <div class="block-title">Сильные стороны:</div>
+      <div id="strengths" class="plain-text"></div>
 
-      <div class="block-title">Сильные стороны</div>
-      <div id="strengths"></div>
+      <div class="block-title">Слабые стороны:</div>
+      <div id="risks" class="plain-text"></div>
 
-      <div class="block-title">Слабые стороны</div>
-      <div id="risks"></div>
-
-      <div class="block-title">Рекомендации от ВОЛЮМ консалтинг</div>
-      <div id="reco"></div>
+      <div class="block-title">Рекомендации от ВОЛЮМ консалтинг:</div>
+      <div id="reco" class="plain-text"></div>
 
       <div class="cta">
         Команда ВОЛЮМ консалтинг поможет определить точки роста внутри компании и усилить вовлечённость сотрудников.
-
         <br><br>
-
-        <a href="https://t.me/VOLUM_consulting">
+        <a href="https://t.me/VOLUM_consulting" target="_blank">
           <button>Получить консультацию</button>
         </a>
       </div>
@@ -208,147 +208,155 @@
 </div>
 
 <script>
+  const questions = [
+    {
+      q: "Как принимаются решения в сложных ситуациях?",
+      a: [
+        ["A", "Организуем общее собрание, учитываем мнение каждого"],
+        ["B", "Быстро: лидер решает, команда исполняет"],
+        ["C", "Каждый сам принимает решение в своей зоне ответственности"],
+        ["D", "Совещаемся с ключевыми участниками процесса и быстро переходим к внедрению"]
+      ]
+    },
+    {
+      q: "Как у вас принято отмечать успехи?",
+      a: [
+        ["A", "Корпоративные мероприятия, совместные выезды, поздравления в общем чате"],
+        ["B", "Индивидуальные бонусы и признание лучших сотрудников"],
+        ["C", "Почти никак — каждый сам знает свои KPI"],
+        ["D", "Публичный разбор результатов и достижений команды"]
+      ]
+    },
+    {
+      q: "Что происходит при ошибке сотрудника?",
+      a: [
+        ["A", "Обсуждаем открыто и вместе ищем решение"],
+        ["B", "Строгий разбор ситуации, выговор"],
+        ["C", "Каждый сам разбирается со своими ошибками"],
+        ["D", "Спокойный разбор без выноса на публичное обсуждение"]
+      ]
+    },
+    {
+      q: "Какие фразы чаще слышны в компании?",
+      a: [
+        ["A", "Мы одна команда"],
+        ["B", "Результат любой ценой"],
+        ["C", "Это не моя зона ответственности"],
+        ["D", "Давайте распределим задачи"]
+      ]
+    },
+    {
+      q: "Что обсуждают в неформальной обстановке?",
+      a: [
+        ["A", "Работу и жизнь"],
+        ["B", "Почти ничего, только рабочие вопросы"],
+        ["C", "Рабочие кейсы, новости рынка, конкурентов"],
+        ["D", "Планы на выходные, фильмы, личное"]
+      ]
+    }
+  ];
 
-const questions = [
-{
-q:"Как принимаются решения в сложных ситуациях?",
-a:[
-["A","Организуем общее собрание, учитываем мнение каждого"],
-["B","Быстро: лидер решает, команда исполняет"],
-["C","Каждый сам принимает решение в своей зоне ответственности"],
-["D","Совещаемся с ключевыми участниками процесса и быстро переходим к внедрению"]
-]
-},
-{
-q:"Как у вас принято отмечать успехи?",
-a:[
-["A","Корпоративные мероприятия, совместные выезды, поздравления в общем чате"],
-["B","Индивидуальные бонусы и признание лучших сотрудников"],
-["C","Почти никак — каждый сам знает свои KPI"],
-["D","Публичный разбор результатов и достижений команды"]
-]
-},
-{
-q:"Что происходит при ошибке сотрудника?",
-a:[
-["A","Обсуждаем открыто и вместе ищем решение"],
-["B","Строгий разбор ситуации, выговор"],
-["C","Каждый сам разбирается со своими ошибками"],
-["D","Спокойный разбор без выноса на публичное обсуждение"]
-]
-},
-{
-q:"Какие фразы чаще слышны в компании?",
-a:[
-["A","Мы одна команда"],
-["B","Результат любой ценой"],
-["C","Это не моя зона ответственности"],
-["D","Давайте распределим задачи"]
-]
-},
-{
-q:"Что обсуждают в неформальной обстановке?",
-a:[
-["A","Работу и жизнь"],
-["B","Почти ничего, только рабочие вопросы"],
-["C","Рабочие кейсы, новости рынка, конкурентов"],
-["D","Планы на выходные, фильмы, личное"]
-]
-}
-];
+  let i = 0;
+  let score = { A: 0, B: 0, C: 0, D: 0 };
+  let selected = null;
 
-let i = 0;
-let score = {A:0,B:0,C:0,D:0};
-let selected = null;
+  function startQuiz() {
+    document.getElementById("start-screen").style.display = "none";
+    document.getElementById("quiz").style.display = "block";
+    render();
+    if (window.Telegram?.WebApp) {
+      Telegram.WebApp.expand();
+    }
+  }
 
-function startQuiz(){
-document.getElementById("start-screen").style.display="none";
-document.getElementById("quiz").style.display="block";
-render();
-}
+  function render() {
+    let q = questions[i];
+    document.getElementById("progress").innerText = `Вопрос ${i + 1} из 5`;
+    document.getElementById("question").innerText = q.q;
 
-function render(){
-let q = questions[i];
-document.getElementById("progress").innerText = `Вопрос ${i+1} из 5`;
-document.getElementById("question").innerText = q.q;
+    let html = "";
+    q.a.forEach(x => {
+      html += `<div class="answer" onclick="pick('${x[0]}', this)">${x[1]}</div>`;
+    });
 
-let html = "";
-q.a.forEach(x=>{
-html += `<div class="answer" onclick="pick('${x[0]}', this)">${x[1]}</div>`;
-});
+    document.getElementById("answers").innerHTML = html;
+    selected = null;
+  }
 
-document.getElementById("answers").innerHTML = html;
-selected=null;
-}
+  function pick(type, el) {
+    selected = type;
+    document.querySelectorAll(".answer").forEach(a => a.classList.remove("active"));
+    el.classList.add("active");
+  }
 
-function pick(type, el){
-selected=type;
-document.querySelectorAll(".answer").forEach(a=>a.classList.remove("active"));
-el.classList.add("active");
-}
+  function next() {
+    if (!selected) {
+      alert("Выберите ответ");
+      return;
+    }
+    score[selected]++;
+    i++;
+    if (i < questions.length) {
+      render();
+    } else {
+      show();
+    }
+  }
 
-function next(){
-if(!selected){alert("Выберите ответ");return;}
-score[selected]++;
-i++;
-if(i<questions.length){render();}
-else{show();}
-}
+  function show() {
+    document.getElementById("quiz").style.display = "none";
+    document.getElementById("result").style.display = "block";
 
-function show(){
+    let type = Object.keys(score).reduce((a, b) => score[a] > score[b] ? a : b);
 
-document.getElementById("quiz").style.display="none";
-document.getElementById("result").style.display="block";
+    const resultsMap = {
+      A: {
+        title: "Сетевая культура",
+        description: "У вас ценят взаимоотношения, помощь, совместные праздники. Люди искренне переживают друг за друга, конфликты редки, а решения часто ищутся коллективно.",
+        strengths: "- Низкая текучка, высокая лояльность.\n- Комфортная атмосфера, люди не боятся высказываться.\n- Быстрое неформальное распространение информации.",
+        risks: "- Решения могут приниматься слишком долго.\n- Страдают сроки и бизнес-результат.\n- Страх обидеть коллегу мешает жёстким, но нужным решениям.",
+        reco: "Попробуйте внедрить еженедельную планёрку с результатами работы и планами без обсуждения личных вопросов. Назначьте модератора на встречи — человека, который мягко возвращает к повестке и следит за таймингом."
+      },
+      B: {
+        title: "Наёмническая культура",
+        description: "У вас ценят скорость, амбиции, деньги и конкуренцию. Ошибки не прощают, победителей награждают, слабых отсеивают.",
+        strengths: "- Быстрые решения, высокая исполнительская дисциплина.\n- Амбициозные цели достигаются.\n- Прозрачная система поощрений.",
+        risks: "- Высокий риск эмоционального выгорания.\n- Страх ошибки блокирует инициативу и инновации.\n- Низкая лояльность: сотрудники уходят, если конкуренты предлагают больше.",
+        reco: "Пересмотрите систему признания: добавьте командный ритуал, например, обед с коллегами без обсуждения рабочих процессов.\nВведите встречу с руководителем один на один — безопасное пространство для разбора сложностей и неудач (без штрафов)."
+      },
+      C: {
+        title: "Фрагментированная культура",
+        description: "У вас высокая автономия, минимальные встречи и общие ритуалы. Люди работают в своих задачах и редко пересекаются.",
+        strengths: "- Нет длительных совещаний и политики согласований.\n- Быстрые решения внутри отделов.\n- Люди ценят свободу и невмешательство.",
+        risks: "- Сотрудники чувствуют себя одинокими, низкая вовлечённость.\n- Отсутствие общих целей.\n- Потеря синергии и кросс-функциональных проектов.",
+        reco: "Введите «дайджест результатов в конце недели» — короткий обзор того, что сделали разные отделы.\nДобавьте общий бонус за командный результат. Запустите неформальный канал в Telegram (для мемов, вопросов и планирования совместных активностей)."
+      },
+      D: {
+        title: "Общинная культура",
+        description: "У вас отличный баланс: и результат важен, и люди не забыты. Команда работает эффективно, но без выгорания.",
+        strengths: "- Высокая продуктивность и вовлечённость.\n- Низкая текучка + высокое качество работы.\n- Решения принимаются быстро, но с учётом мнения ключевых игроков.",
+        risks: "- Такая культура часто держится на внутренней силе лидера.\n- Трудно масштабировать при резком росте.\n- Риск перейти в сетевую культуру или в наёмническую при смене коллектива или кризисе.",
+        reco: "При найме новых сотрудников обращайте внимание на совпадение ценностей и культурного кода.\nВведите культуру обратной связи после крупных проектов или раз в полгода, чтобы работать с состоянием команды.\nЗадокументируйте ваши ритуалы и принципы, чтобы корпоративная культура оставалась даже при отсутствии ключевых участников команды."
+      }
+    };
 
-let type = Object.keys(score).reduce((a,b)=>score[a]>score[b]?a:b);
+    const data = resultsMap[type];
+    document.getElementById("resultTitle").innerText = data.title;
+    document.getElementById("description").innerText = data.description;
+    document.getElementById("strengths").innerText = data.strengths;
+    document.getElementById("risks").innerText = data.risks;
+    document.getElementById("reco").innerText = data.reco;
 
-const r = {
-A:{
-t:"Сетевая культура",
-d:"У вас ценят взаимоотношения, помощь, совместные праздники. Люди искренне переживают друг за друга, конфликты редки, а решения часто ищутся коллективно.",
-s:"- Низкая текучка, высокая лояльность
-  - Комфортная атмосфера, люди не боятся высказываться
-  - Быстрое неформальное распространение информации",
-r:"- Решения могут приниматься слишком долго
-  - Страдают сроки и бизнес-результат
-  - Страх обидеть коллегу мешает жёстким, но нужным решениям",
-c:"Попробуйте внедрить еженедельные планёрки с результатами работы и планами без обсуждения личных вопросов. Назначьте модератора на встречи — человека, который мягко возвращает к повестке и следит за таймингом."
-},
-B:{
-t:"Наёмническая культура",
-d:"Фокус на скорости, деньгах и результате.",
-s:"Быстрый рост, сильная дисциплина.",
-r:"Выгорание и высокая текучка.",
-c:"Добавьте командные ритуалы и безопасные one-to-one встречи."
-},
-C:{
-t:"Фрагментированная культура",
-d:"Высокая автономия и низкая связанность.",
-s:"Быстрая работа внутри отделов.",
-r:"Слабая вовлечённость и отсутствие единства.",
-c:"Внедрите еженедельный дайджест и общий бонус."
-},
-D:{
-t:"Общинная культура",
-d:"Баланс результата и команды.",
-s:"Высокая эффективность и вовлечённость.",
-r:"Сложно масштабировать.",
-c:"Фиксируйте культуру и принципы в документах."
-}
-};
+    if (window.Telegram?.WebApp) {
+      Telegram.WebApp.expand();
+    }
+  }
 
-document.getElementById("resultTitle").innerText=r[type].t;
-document.getElementById("description").innerText=r[type].d;
-document.getElementById("strengths").innerText=r[type].s;
-document.getElementById("risks").innerText=r[type].r;
-document.getElementById("reco").innerText=r[type].c;
-
-if(window.Telegram?.WebApp){
-Telegram.WebApp.expand();
-}
-
-}
-
+  // Автоматическое раскрытие WebApp при загрузке
+  if (window.Telegram?.WebApp) {
+    Telegram.WebApp.expand();
+    Telegram.WebApp.enableClosingConfirmation();
+  }
 </script>
 
 </body>
