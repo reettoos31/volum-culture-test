@@ -70,32 +70,6 @@
       color: #fff;
     }
 
-    /* Стили для неактивной кнопки "Далее" */
-    button.disabled-btn,
-    button:disabled {
-      opacity: 0.5;
-      background: transparent !important;
-      color: #000 !important;
-      cursor: not-allowed;
-    }
-
-    button.disabled-btn:hover,
-    button:disabled:hover {
-      background: transparent !important;
-      color: #000 !important;
-    }
-
-    /* Активная кнопка "Далее" после выбора ответа */
-    button.active-next {
-      background: #000;
-      color: #fff;
-    }
-
-    button.active-next:hover {
-      background: #000;
-      color: #fff;
-    }
-
     .quiz {
       display: none;
     }
@@ -177,16 +151,35 @@
       line-height: 1.5;
     }
 
-    /* Стиль для подписи об источнике теста */
+    /* Стиль для подписи об источнике теста — левое выравнивание, размер 11px */
     .test-credit {
       font-family: 'Raleway', sans-serif;
-      font-size: 12px;
+      font-size: 11px;
       font-style: italic;
       font-weight: 400;
       color: #555;
       margin-top: 20px;
-      text-align: center;
+      text-align: left;
       line-height: 1.4;
+    }
+
+    /* Стиль для плашки с ошибкой */
+    .error-message {
+      font-family: 'Raleway', sans-serif;
+      font-size: 14px;
+      color: #d32f2f;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid #d32f2f;
+      border-radius: 12px;
+      padding: 10px 16px;
+      margin-top: 12px;
+      text-align: center;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-5px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
@@ -231,6 +224,7 @@
       <div id="answers"></div>
     </div>
     <button id="nextBtn" onclick="next()">Далее</button>
+    <div id="errorMsg" class="error-message" style="display: none;">Выберите вариант ответа</div>
   </div>
 
   <div class="result" id="result">
@@ -244,7 +238,7 @@
       <div class="block-title">Рекомендации от&nbsp;ВОЛЮМ консалтинг:</div>
       <div id="reco" class="plain-text"></div>
 
-      <!-- Подпись об источнике теста -->
+      <!-- Подпись об источнике теста — левое выравнивание, 11px -->
       <div class="test-credit">
         Тест создан на&nbsp;основе матрицы типов корпоративной культуры<br>Роба Гоффи и&nbsp;Гарета Джонса
       </div>
@@ -273,20 +267,7 @@
   let i = 0;
   let score = { A: 0, B: 0, C: 0, D: 0 };
   let selected = null;
-
-  // Получаем ссылку на кнопку "Далее"
-  const nextBtn = document.getElementById('nextBtn');
-
-  // Функция обновления состояния кнопки
-  function updateNextButtonState() {
-    if (selected) {
-      nextBtn.classList.add('active-next');
-      nextBtn.disabled = false;
-    } else {
-      nextBtn.classList.remove('active-next');
-      nextBtn.disabled = true;
-    }
-  }
+  let errorTimeout = null;
 
   function startQuiz() {
     document.getElementById("start-screen").style.display = "none";
@@ -298,23 +279,44 @@
   function render() {
     let q = questions[i];
     document.getElementById("progress").innerText = `Вопрос ${i+1} из 5`;
-    document.getElementById("question").innerHTML = q.q; // используем innerHTML для &nbsp;
+    document.getElementById("question").innerHTML = q.q;
     let html = "";
     q.a.forEach(x => { html += `<div class="answer" onclick="pick('${x[0]}', this)">${x[1]}</div>`; });
     document.getElementById("answers").innerHTML = html;
     selected = null;
-    updateNextButtonState(); // Сбрасываем кнопку в неактивное состояние
+    // Скрываем ошибку при смене вопроса
+    hideError();
   }
 
   function pick(type, el) {
     selected = type;
     document.querySelectorAll(".answer").forEach(a => a.classList.remove("active"));
     el.classList.add("active");
-    updateNextButtonState(); // Активируем кнопку при выборе ответа
+    // Скрываем ошибку, если пользователь выбрал ответ
+    hideError();
+  }
+
+  function showError() {
+    const errorDiv = document.getElementById("errorMsg");
+    if (errorTimeout) clearTimeout(errorTimeout);
+    errorDiv.style.display = "block";
+    errorTimeout = setTimeout(() => {
+      errorDiv.style.display = "none";
+    }, 2000);
+  }
+
+  function hideError() {
+    const errorDiv = document.getElementById("errorMsg");
+    if (errorTimeout) clearTimeout(errorTimeout);
+    errorDiv.style.display = "none";
   }
 
   function next() {
-    if (!selected) { alert("Выберите ответ"); return; }
+    if (!selected) {
+      showError();
+      return;
+    }
+    hideError();
     score[selected]++;
     i++;
     if (i < questions.length) { render(); } else { show(); }
